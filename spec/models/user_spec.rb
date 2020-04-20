@@ -5,11 +5,11 @@ RSpec.describe User, type: :model do
 
     # instantiation test
 	it 'exists' do
-		organization
+		user
 	end
 
 	# attribute tests
-	it 'has a status' do
-		expect(organization).to respond_to(:status)
+	it 'has an email' do
+		expect(user).to respond_to(:email)
 	end
 end
