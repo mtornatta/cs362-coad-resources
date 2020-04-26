@@ -44,7 +44,47 @@ RSpec.describe Organization, type: :model do
 		end
 	end
 
-	describe 'validations' do
+	describe 'presence-of validations' do
+
+		it 'validates presence of email' do
+			expect(organization).to validate_presence_of(:email)
+		end
+
+		it 'validates presence of name' do
+			expect(organization).to validate_presence_of(:name)
+		end
+
+		it 'validates presence of phone' do
+			expect(organization).to validate_presence_of(:phone)
+		end
+
+		it 'validates presence of status' do
+			expect(organization).to validate_presence_of(:status)
+		end
+
+		it 'validates presence of primary name' do
+			expect(organization).to validate_presence_of(:primary_name)
+		end
+
+		it 'validates presence of secondary name' do
+			expect(organization).to validate_presence_of(:secondary_name)
+		end
+		
+		it 'validates presence of secondary phone' do
+			expect(organization).to validate_presence_of(:secondary_phone)
+		end
+
+		# it 'should fail' do
+		# 	expect(organization).to validate_presence_of(:transportation)
+		# end
+		
+	end
+
+	describe 'length validations' do
+
+		it 'validates length of email' do
+
+		end
 
 	end
 
