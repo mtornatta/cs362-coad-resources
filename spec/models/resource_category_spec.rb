@@ -11,15 +11,27 @@ RSpec.describe ResourceCategory, type: :model do
 	end
 
 	describe 'attributes' do
+
 		it 'responsds to name' do
 			expect(resourceCategory).to respond_to(:name)
 		end
+
 	end
 
-	# describe 'validations' do
-	# 	it 'validates name' do
-	# 		expect(resourceCategory).to validate_presence_of(:name)
-	# 	end
-	# end
+	describe 'validations' do
+
+		it 'validates name' do
+			expect(resourceCategory).to validate_presence_of(:name)
+		end
+
+		it 'validates length of name' do
+			expect(resourceCategory).to validate_length_of(:name).is_at_least(1).is_at_most(255).on(:create)
+		end
+
+		it 'validates name is case insensitive' do
+			expect(resourceCategory).to validate_uniqueness_of(:name).case_insensitive
+		end
+		
+	end
 	
 end
