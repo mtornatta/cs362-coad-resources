@@ -1,7 +1,8 @@
 RECAPTCHA_SITE_KEY: '6LfXMOoUAAAAAH7fS5MWcAuMwyPESauMaU8n62iX'
 RECAPTCHA_SECRET_KEY: '6LfXMOoUAAAAAIR-Wg8u1g62NvM3et4HPeGMPFGw'
 
-ADMINS: '{admin_name: "admin_email@domain.com}'
+ADMINS: '{admin_name: admin_email@domain.com}'
 DEFAULT_PASSOWRD: 'password'
 
 TEST_USER_EMAIL: 'test_email@domain.com'
+TEST_USER_PASSWORD: 'password'
