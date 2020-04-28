@@ -33,5 +33,13 @@ RSpec.describe ResourceCategory, type: :model do
 		end
 		
 	end
+
+	describe '#active' do
+
+		it 'retrieves only active resource categories' do
+			
+		end
+
+	end
 	
 end
