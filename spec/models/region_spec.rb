@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Region, type: :model do
-    let(:region) { Region.new }
+	let(:region) { Region.new }
+	#let(:region) {FactoryBot.build(:region)}
 
     # instantiation test
 	it 'exists' do
