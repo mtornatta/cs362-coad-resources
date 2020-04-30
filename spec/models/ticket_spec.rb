@@ -21,4 +21,11 @@ RSpec.describe Ticket, type: :model do
     it 'has a resource_category_id' do
         expect(ticket).to respond_to(:resource_category_id)
     end
+
+    #Scope Tests
+    it 'retrieves an open ticket' do
+        open_ticket = Ticket.create(closed: true, organization_id: Organization.new)
+        open_tickets = Ticket.open
+        expect(open_tickets).to include(open_ticket)
+    end
 end
