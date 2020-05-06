@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
 
     #let(:user) { User.new }
-    let(:user) { FactoryBot.build(:user) }
+    let(:user) { build(:user) }
 
     #instantiation test
 	it 'exists' do
@@ -34,17 +34,21 @@ RSpec.describe User, type: :model do
 
 	describe 'user role tests' do
 
-		it 'assigns organization role by default' do
+		let(:organization_member) { build(:user, :organization_member) }
+		let(:admin) { build(:user, :admin) }
+
+		it 'assigns organization as default role' do
 			expect(user.role).to eq('organization')
 		end
 
-		it 'can assign admin role to user' do
-			user = FactoryBot.build(:user, role: 'admin')
-			expect(user.role).to eq('admin')
+		it 'can assign organization role' do
+			expect(organization_member.role).to eq('organization')
+		end
+
+		it 'can assign admin role' do
+			expect(admin.role).to eq('admin')
 		end
 
 	end
-
-
 
 end

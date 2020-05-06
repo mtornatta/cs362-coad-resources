@@ -41,5 +41,10 @@ RSpec.describe ResourceCategory, type: :model do
 		end
 
 	end
-	
+
+	describe 'associations' do
+		it 'belongs to an association' do
+			expect(resourceCategory).to have_and_belong_to_many(:organizations)
+		end
+	end
 end
