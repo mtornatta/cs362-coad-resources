@@ -1,5 +1,5 @@
 FactoryBot.define do
     factory :region, aliases: [:place] do
-      #association :doer, factory: :ticket, name: "ticket doer"
+      sequence(:name) { |n| "Region#{n}" }
     end
 end

@@ -1,5 +1,7 @@
 FactoryBot.define do
 	factory :user do
+		email { 'fake@fake.com'}
+		password { 'fake_password' }
 		trait :admin do
 			role { :admin }
 		end
