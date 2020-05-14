@@ -2,11 +2,10 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
-  #let(:user) { User.new }
   let(:user) { build(:user) }
 
 
-  describe 'validation tests' do
+  describe 'Validation Tests' do
 
     it 'validates presence of an email' do
   	  expect(user).to validate_presence_of(:email)
@@ -22,14 +21,11 @@ RSpec.describe User, type: :model do
 
   end
 
-  describe 'user role tests' do
+
+  describe 'User Role Tests' do
 
   	let(:organization_member) { build(:user, :organization_member) }
   	let(:admin) { build(:user, :admin) }
-
-  	it 'assigns organization as default role' do
-  	  expect(user.role).to eq('organization')
-  	end
 
   	it 'can assign organization role' do
   	  expect(organization_member.role).to eq('organization')
@@ -40,5 +36,21 @@ RSpec.describe User, type: :model do
   	end
 
   end
+
+  describe 'Method Tests' do
+
+    #set_default_role
+    it 'sets organization as default role' do
+      expect(user.role).to eq('organization')
+    end
+
+    #to_s 
+    # (I didn't want to explicitly call to_s, but I couldn't find a way around it)
+    it 'is represented by its email' do
+      expect(user.to_s).to eq(user.email)
+    end
+
+  end
+
 
 end
