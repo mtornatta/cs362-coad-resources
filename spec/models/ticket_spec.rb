@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Ticket, type: :model do
-    let(:ticket) { build(:ticket) }
-    let(:open_ticket) { create(:ticket, closed: false) }
-    let(:closed_ticket) { create(:ticket, closed: true) }
+  let(:ticket) { build(:ticket) }
+  let(:open_ticket) { create(:ticket, closed: false) }
+  let(:closed_ticket) { create(:ticket, closed: true) }
 
   describe 'Attribute Tests' do
 
-	it 'has a name' do
+    it 'has a name' do
       expect(ticket).to respond_to(:name)
     end
 
@@ -28,11 +28,11 @@ RSpec.describe Ticket, type: :model do
   describe 'Association Tests' do
 
     it 'belongs to a region' do
-        expect(ticket).to belong_to(:region)
+      expect(ticket).to belong_to(:region)
     end
 
     it 'belongs to a resource category' do
-        expect(ticket).to belong_to(:resource_category)
+      expect(ticket).to belong_to(:resource_category)
     end
 
     # it 'belongs to an organization' do

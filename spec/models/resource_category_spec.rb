@@ -1,50 +1,55 @@
 require 'rails_helper'
 
 RSpec.describe ResourceCategory, type: :model do
-	
-	let(:resourceCategory) { ResourceCategory.new }
 
-	describe 'existence' do
-		it 'exists' do
-			ResourceCategory.new
-		end
-	end
+  let(:resourceCategory) { ResourceCategory.new }
 
-	describe 'attributes' do
+  describe 'existence' do
 
-		it 'responsds to name' do
-			expect(resourceCategory).to respond_to(:name)
-		end
+    it 'exists' do
+      ResourceCategory.new
+    end
 
-	end
+  end
 
-	describe 'all validations' do
+  describe 'attributes' do
 
-		it 'validates name' do
-			expect(resourceCategory).to validate_presence_of(:name)
-		end
+  	it 'responsds to name' do
+      expect(resourceCategory).to respond_to(:name)
+  	end
 
-		it 'validates length of name' do
-			expect(resourceCategory).to validate_length_of(:name).is_at_least(1).is_at_most(255).on(:create)
-		end
+  end
 
-		it 'validates name is case insensitive' do
-			expect(resourceCategory).to validate_uniqueness_of(:name).case_insensitive
-		end
-		
-	end
+  describe 'all validations' do
 
-	describe '#active' do
+    it 'validates name' do
+      expect(resourceCategory).to validate_presence_of(:name)
+    end
 
-		it 'retrieves only active resource categories' do
-			
-		end
+    it 'validates length of name' do
+      expect(resourceCategory).to validate_length_of(:name).is_at_least(1).is_at_most(255).on(:create)
+    end
 
-	end
+    it 'validates name is case insensitive' do
+      expect(resourceCategory).to validate_uniqueness_of(:name).case_insensitive
+    end
+  	
+  end
 
-	describe 'associations' do
-		it 'belongs to an association' do
-			expect(resourceCategory).to have_and_belong_to_many(:organizations)
-		end
-	end
+  describe '#active' do
+
+    it 'retrieves only active resource categories' do
+    	
+    end
+
+  end
+
+  describe 'associations' do
+
+  	it 'belongs to an association' do
+  	  expect(resourceCategory).to have_and_belong_to_many(:organizations)
+  	end
+
+  end
+
 end
