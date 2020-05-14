@@ -37,6 +37,7 @@ RSpec.describe User, type: :model do
 
   end
 
+
   describe 'Method Tests' do
 
     #set_default_role

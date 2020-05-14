@@ -4,7 +4,7 @@ RSpec.describe Organization, type: :model do
 	
   let(:organization) { Organization.new }
 
-  describe 'attributes' do
+  describe 'Attribute Tests' do
 
   	it 'responds to transportation' do
   	  expect(organization).to respond_to(:transportation)
@@ -12,7 +12,7 @@ RSpec.describe Organization, type: :model do
 
   end
 
-  describe 'presence-of validations' do
+  describe 'Presence-of Validation Tests' do
 
   	it 'validates presence of email' do
   	  expect(organization).to validate_presence_of(:email)
@@ -48,7 +48,7 @@ RSpec.describe Organization, type: :model do
   	
   end
 
-  describe 'length validations' do
+  describe 'Length Validation Tests' do
 
   	it 'validates length of email' do
       
@@ -56,7 +56,7 @@ RSpec.describe Organization, type: :model do
   	
   end
 
-  describe 'associations' do
+  describe 'Association Tests' do
 
   	it 'has many users' do
   	  expect(organization).to have_many(:users)
