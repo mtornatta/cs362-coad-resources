@@ -2,54 +2,57 @@ require 'rails_helper'
 
 RSpec.describe ResourceCategory, type: :model do
 
-  let(:resourceCategory) { ResourceCategory.new }
+  let(:resource_category) { build(:resource_category) }
 
-  describe 'existence' do
 
-    it 'exists' do
-      ResourceCategory.new
-    end
-
-  end
-
-  describe 'attributes' do
-
-  	it 'responsds to name' do
-      expect(resourceCategory).to respond_to(:name)
-  	end
-
-  end
-
-  describe 'all validations' do
+  describe 'Validation Tests' do
 
     it 'validates name' do
-      expect(resourceCategory).to validate_presence_of(:name)
+      expect(resource_category).to validate_presence_of(:name)
     end
 
     it 'validates length of name' do
-      expect(resourceCategory).to validate_length_of(:name).is_at_least(1).is_at_most(255).on(:create)
+      expect(resource_category).to validate_length_of(:name).is_at_least(1).is_at_most(255).on(:create)
     end
 
-    it 'validates name is case insensitive' do
-      expect(resourceCategory).to validate_uniqueness_of(:name).case_insensitive
+    it 'validates name is unique & case insensitive' do
+      expect(resource_category).to validate_uniqueness_of(:name).case_insensitive
     end
   	
   end
 
-  describe '#active' do
 
-    it 'retrieves only active resource categories' do
-    	
+  describe 'Scope Tests' do
+
+    let(:active_category) { create(:resource_category, active: true) }
+    let(:inactive_category) { create(:resource_category, active: false) }
+
+    it 'can retrieve active resource categories' do
+    	active_category_list = ResourceCategory.active
+      expect(active_category_list).to include(active_category)
+      expect(active_category_list).not_to include(inactive_category)
+    end
+
+    it 'can retrieve inactive resource categories' do
+      inactive_category_list = ResourceCategory.inactive
+      expect(inactive_category_list).to include(inactive_category)
+      expect(inactive_category_list).not_to include(active_category)
     end
 
   end
 
-  describe 'associations' do
 
-  	it 'belongs to an association' do
-  	  expect(resourceCategory).to have_and_belong_to_many(:organizations)
+  describe 'Association Tests' do
+
+  	it 'has and belongs to organizations' do
+  	  expect(resource_category).to have_and_belong_to_many(:organizations)
   	end
 
+    it 'has many tickets' do
+      expect(resource_category).to have_many(:tickets)
+    end
+
   end
+  
 
 end
