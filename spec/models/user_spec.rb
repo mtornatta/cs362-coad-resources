@@ -41,12 +41,11 @@ RSpec.describe User, type: :model do
   describe 'Method Tests' do
 
     #set_default_role
-    it 'sets organization as default role' do
+    it 'sets default role to organization' do
       expect(user.role).to eq('organization')
     end
 
     #to_s 
-    # (I didn't want to explicitly call to_s, but I couldn't find a way around it)
     it 'is represented by its email' do
       expect(user.to_s).to eq(user.email)
     end
