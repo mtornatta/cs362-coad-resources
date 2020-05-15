@@ -5,11 +5,23 @@ FactoryBot.define do
   	email { 'fake@email.com' }
   	name { 'FAKE ORGANIZATION' }
   	phone { '+14515555555' }
-  	status { :approved }
   	primary_name { 'FAKE' }
   	secondary_name { 'ORGANIZATION' }
-  	secondary_phone { '+34515555555' }
-    
+  	secondary_phone { '+24515555555' }
+
+  	trait :approved do
+  		status { :approved }
+  	end
+  	trait :submitted do
+  		status { :submitted }
+  	end
+  	trait :rejected do
+  		status { :rejected }
+  	end
+  	trait :locked do
+  		status { :locked }
+  	end
+
   end
 
 end
