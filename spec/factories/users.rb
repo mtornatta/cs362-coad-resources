@@ -5,9 +5,12 @@ FactoryBot.define do
   	email { 'fake@fake.com'}
   	password { 'fake_password' }
 
+   # Traits
+
   	trait :admin do
   	  role { :admin }
   	end
+
   	trait :organization_member do
   	  role { :organization }
   	end
