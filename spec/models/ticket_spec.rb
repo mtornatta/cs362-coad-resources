@@ -2,25 +2,41 @@ require 'rails_helper'
 
 RSpec.describe Ticket, type: :model do
 
+  # Stub Builds
   let(:ticket) { build(:ticket) }
+  let(:open_ticket) { build(:ticket, :open) }
+  let(:closed_ticket) { build(:ticket, :closed) }
+
+  # Database Builds
+  let(:open_ticket_entry) { create(:ticket, :open) }
+  let(:closed_ticket_entry) { create(:ticket, :closed) }
 
 
   describe 'Attribute Tests' do
 
-    it 'has a name' do
-      expect(ticket).to respond_to(:name)
+    it 'can have an organization_id' do
+      expect(ticket).to respond_to(:organization_id)
     end
 
-    it 'has a phone' do
-      expect(ticket).to respond_to(:phone)
+  end
+
+
+  describe 'Validation Tests' do
+
+    it 'must have a name' do
+      expect(ticket).to validate_presence_of(:name)
     end
 
-    it 'has a region_id' do
-      expect(ticket).to respond_to(:region_id)
+    it 'must have a phone' do
+      expect(ticket).to validate_presence_of(:phone)
     end
 
-    it 'has a resource_category_id' do
-      expect(ticket).to respond_to(:resource_category_id)
+    it 'must have a region_id' do
+      expect(ticket).to validate_presence_of(:region_id)
+    end
+
+    it 'must have a resource_category_id' do
+      expect(ticket).to validate_presence_of(:resource_category_id)
     end
 
   end
@@ -36,31 +52,43 @@ RSpec.describe Ticket, type: :model do
       expect(ticket).to belong_to(:resource_category)
     end
 
-    # it 'belongs to an organization' do
-    #   class Ticket < ApplicationRecord
-    #     belongs_to :organization, optional: true
-    #   end
-    #   expect(ticket).to belong_to(:organization)
-    # end
+    it 'can belong to an organization' do
+      expect(ticket).to belong_to(:organization).optional
+    end
 
   end
 
 
   describe 'Scope Tests' do
 
-    let(:open_ticket) { create(:ticket, closed: false) }
-    let(:closed_ticket) { create(:ticket, closed: true) }
-
-    it 'can retrieve open tickets' do
+    it 'can retrieve all open tickets' do
       open_ticket_list = Ticket.open
-      expect(open_ticket_list).to include(open_ticket)
-      expect(open_ticket_list).not_to include(closed_ticket)
+      expect(open_ticket_list).to include(open_ticket_entry)
+      expect(open_ticket_list).not_to include(closed_ticket_entry)
     end
 
-    it 'can retrieve closed tickets' do
+    it 'can retrieve all closed tickets' do
       closed_ticket_list = Ticket.closed
-      expect(closed_ticket_list).to include(closed_ticket)
-      expect(closed_ticket_list).not_to include(open_ticket)
+      expect(closed_ticket_list).to include(closed_ticket_entry)
+      expect(closed_ticket_list).not_to include(open_ticket_entry)
+    end
+
+  end
+
+
+  describe 'Method Tests' do
+
+    #open?
+    it 'can verify that a single ticket is open' do
+      expect(open_ticket.open?).to be_truthy
+    end
+    it 'can verify that a single ticket is closed' do
+      expect(closed_ticket.open?).to be_falsy
+    end
+
+    #to_s
+    it 'is represented by its ID' do
+      expect(ticket.to_s).to eq("Ticket #{ticket.id}")
     end
 
   end
