@@ -103,6 +103,16 @@ RSpec.describe Organization, type: :model do
 
   describe 'Method Tests' do
 
+    #approve
+    it 'can set status to approved' do
+      # IMPLEMENT
+    end
+
+    #reject
+    it 'can set status to rejected' do
+      # IMPLEMENT
+    end
+
     #set_default_status
     it 'sets default status to submitted' do
       expect(organization.status).to eq('submitted')

@@ -59,8 +59,17 @@ RSpec.describe ResourceCategory, type: :model do
 
   describe 'Method Tests' do
 
-    it '' do
+    #activate
+    it 'can set active to true' do
+      # IMPLEMENT
     end
+
+    #deactivate
+    it 'can set active to false' do
+      # IMPLEMENT
+    end
+
+    
 
   end
 
