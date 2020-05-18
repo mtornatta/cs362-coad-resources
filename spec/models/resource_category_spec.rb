@@ -10,17 +10,30 @@ RSpec.describe ResourceCategory, type: :model do
   let(:inactive_category_entry) { create(:resource_category, active: false) }
 
 
+  describe 'Association Tests' do
+
+    it 'has and belongs to organizations' do
+      expect(resource_category).to have_and_belong_to_many(:organizations)
+    end
+
+    it 'has many tickets' do
+      expect(resource_category).to have_many(:tickets)
+    end
+
+  end
+
+
   describe 'Validation Tests' do
 
-    it 'validates name' do
+    it 'must have a name' do
       expect(resource_category).to validate_presence_of(:name)
     end
 
-    it 'validates length of name' do
+    it 'has a valid length name' do
       expect(resource_category).to validate_length_of(:name).is_at_least(1).is_at_most(255).on(:create)
     end
 
-    it 'validates name is unique & case insensitive' do
+    it 'has a unique name (case insensitive)' do
       expect(resource_category).to validate_uniqueness_of(:name).case_insensitive
     end
   	
@@ -30,7 +43,7 @@ RSpec.describe ResourceCategory, type: :model do
   describe 'Scope Tests' do
 
     it 'can retrieve active resource categories' do
-    	active_category_list = ResourceCategory.active
+      active_category_list = ResourceCategory.active
       expect(active_category_list).to include(active_category_entry)
       expect(active_category_list).not_to include(inactive_category_entry)
     end
@@ -44,17 +57,12 @@ RSpec.describe ResourceCategory, type: :model do
   end
 
 
-  describe 'Association Tests' do
+  describe 'Method Tests' do
 
-  	it 'has and belongs to organizations' do
-  	  expect(resource_category).to have_and_belong_to_many(:organizations)
-  	end
-
-    it 'has many tickets' do
-      expect(resource_category).to have_many(:tickets)
+    it '' do
     end
 
   end
-  
+
 
 end
