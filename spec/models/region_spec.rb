@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Region, type: :model do
 
+  # Stub Build
   let(:region) { build(:region) }
 
 
