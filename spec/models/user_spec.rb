@@ -2,7 +2,10 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
+  # Stub Builds
   let(:user) { build(:user) }
+  let(:organization_member) { build(:user, :organization_member) }
+  let(:admin) { build(:user, :admin) }
 
 
   describe 'Validation Tests' do
@@ -23,9 +26,6 @@ RSpec.describe User, type: :model do
 
 
   describe 'User Role Tests' do
-
-  	let(:organization_member) { build(:user, :organization_member) }
-  	let(:admin) { build(:user, :admin) }
 
   	it 'can assign organization role' do
   	  expect(organization_member.role).to eq('organization')
