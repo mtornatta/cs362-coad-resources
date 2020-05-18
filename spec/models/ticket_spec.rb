@@ -18,25 +18,45 @@ RSpec.describe Ticket, type: :model do
       expect(ticket).to respond_to(:organization_id)
     end
 
+    it 'can have a description' do
+      expect(ticket).to respond_to(:description)
+    end
+
   end
 
 
   describe 'Validation Tests' do
 
-    it 'must have a name' do
-      expect(ticket).to validate_presence_of(:name)
+    describe 'Presence-of' do
+
+      it 'must have a name' do
+        expect(ticket).to validate_presence_of(:name)
+      end
+
+      it 'must have a phone' do
+        expect(ticket).to validate_presence_of(:phone)
+      end
+
+      it 'must have a region_id' do
+        expect(ticket).to validate_presence_of(:region_id)
+      end
+
+      it 'must have a resource_category_id' do
+        expect(ticket).to validate_presence_of(:resource_category_id)
+      end
+
     end
 
-    it 'must have a phone' do
-      expect(ticket).to validate_presence_of(:phone)
-    end
+    describe 'Length' do
 
-    it 'must have a region_id' do
-      expect(ticket).to validate_presence_of(:region_id)
-    end
+      it 'has a valid length name' do
+        expect(ticket).to validate_length_of(:name).is_at_least(1).is_at_most(255).on(:create)
+      end
 
-    it 'must have a resource_category_id' do
-      expect(ticket).to validate_presence_of(:resource_category_id)
+      it 'has a valid length description' do
+        expect(ticket).to validate_length_of(:description).is_at_most(1020).on(:create)
+      end
+
     end
 
   end
