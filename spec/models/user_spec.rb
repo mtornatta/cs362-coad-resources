@@ -8,32 +8,66 @@ RSpec.describe User, type: :model do
   let(:admin) { build(:user, :admin) }
 
 
-  describe 'Validation Tests' do
+  describe 'User Role Tests' do
 
-    it 'validates presence of an email' do
-  	  expect(user).to validate_presence_of(:email)
+    it 'can assign organization role' do
+      expect(organization_member.role).to eq('organization')
     end
 
-    it 'validates length of email' do
-  	  expect(user).to validate_length_of(:email).is_at_least(1).is_at_most(255)
-    end
-
-    it 'validates email is case insensitive' do
-  	  expect(user).to validate_uniqueness_of(:email).case_insensitive
+    it 'can assign admin role' do
+      expect(admin.role).to eq('admin')
     end
 
   end
 
 
-  describe 'User Role Tests' do
+  describe 'Association Tests' do
 
-  	it 'can assign organization role' do
-  	  expect(organization_member.role).to eq('organization')
-  	end
+    it 'can belong to an organization' do
+      expect(user).to belong_to('organization').optional
+    end
 
-  	it 'can assign admin role' do
-  	  expect(admin.role).to eq('admin')
-  	end
+  end
+
+
+  describe 'Validation Tests' do
+
+    describe 'Presence-of' do
+
+      it 'must have an email' do
+    	  expect(user).to validate_presence_of(:email)
+      end
+
+      it 'must have a password in database' do
+        expect(user).to validate_presence_of(:password).on(:create)
+      end
+
+    end
+
+    describe 'Length' do
+
+      it 'has a valid length email' do
+    	  expect(user).to validate_length_of(:email).is_at_least(1).is_at_most(255).on(:create)
+      end
+
+      it 'has a valid length password' do
+        expect(user).to validate_length_of(:password).is_at_least(7).is_at_most(255).on(:create)
+      end
+
+    end
+
+    describe 'Format' do
+      # email regex
+      # HOW DO THIS???
+    end
+
+    describe 'Uniqueness' do
+
+      it 'has a unique email (case insensitive)' do
+    	  expect(user).to validate_uniqueness_of(:email).case_insensitive
+      end
+
+    end
 
   end
 
