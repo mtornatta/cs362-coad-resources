@@ -2,7 +2,12 @@ require 'rails_helper'
 
 RSpec.describe ResourceCategory, type: :model do
 
+  # Stub Builds
   let(:resource_category) { build(:resource_category) }
+
+  # Database Builds
+  let(:active_category_entry) { create(:resource_category, active: true) }
+  let(:inactive_category_entry) { create(:resource_category, active: false) }
 
 
   describe 'Validation Tests' do
@@ -24,19 +29,16 @@ RSpec.describe ResourceCategory, type: :model do
 
   describe 'Scope Tests' do
 
-    let(:active_category) { create(:resource_category, active: true) }
-    let(:inactive_category) { create(:resource_category, active: false) }
-
     it 'can retrieve active resource categories' do
     	active_category_list = ResourceCategory.active
-      expect(active_category_list).to include(active_category)
-      expect(active_category_list).not_to include(inactive_category)
+      expect(active_category_list).to include(active_category_entry)
+      expect(active_category_list).not_to include(inactive_category_entry)
     end
 
     it 'can retrieve inactive resource categories' do
       inactive_category_list = ResourceCategory.inactive
-      expect(inactive_category_list).to include(inactive_category)
-      expect(inactive_category_list).not_to include(active_category)
+      expect(inactive_category_list).to include(inactive_category_entry)
+      expect(inactive_category_list).not_to include(active_category_entry)
     end
 
   end
