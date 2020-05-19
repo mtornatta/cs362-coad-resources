@@ -57,8 +57,14 @@ RSpec.describe User, type: :model do
     end
 
     describe 'Format' do
-      # email regex
-      # HOW DO THIS???
+      
+      it 'has a valid email' do
+        valid_email = "test@email.com"
+        invalid_email = "invalid_email.com"
+        expect(user).to allow_value(valid_email).for(:email)
+        expect(user).not_to allow_value(invalid_email).for(:email)
+      end
+      
     end
 
     describe 'Uniqueness' do

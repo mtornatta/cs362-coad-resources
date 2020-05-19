@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'phony'
 
 RSpec.describe Ticket, type: :model do
 
@@ -8,8 +9,13 @@ RSpec.describe Ticket, type: :model do
   let(:closed_ticket) { build(:ticket, :closed) }
 
   # Database Builds
+  let(:ticket_entry) { create(:ticket) }
   let(:open_ticket_entry) { create(:ticket, :open) }
   let(:closed_ticket_entry) { create(:ticket, :closed) }
+  let(:organization_ticket_entry) { create(:ticket, :organization) }
+  let(:closed_organization_ticket_entry) { create(:ticket, :closed_organization) }
+  let(:region_ticket_entry) { create(:ticket, :region) }
+  let(:resource_category_ticket_entry) { create(:ticket, :resource_category) }
 
 
   describe 'Attribute Tests' do
@@ -59,6 +65,12 @@ RSpec.describe Ticket, type: :model do
 
     end
 
+    describe 'Phony' do
+      it 'has a valid phone number' do
+        expect(Phony.plausible?(ticket.phone)).to be_truthy 
+      end
+    end
+
   end
 
 
@@ -91,6 +103,31 @@ RSpec.describe Ticket, type: :model do
       closed_ticket_list = Ticket.closed
       expect(closed_ticket_list).to include(closed_ticket_entry)
       expect(closed_ticket_list).not_to include(open_ticket_entry)
+    end
+
+    it 'can retrieve tickets associated with an organization' do
+      organization_ticket_list = Ticket.all_organization
+      expect(organization_ticket_list).to include(organization_ticket_entry)
+    end
+
+    it 'can retrieve an open ticket associated with an organization' do
+      organization_ticket_list = Ticket.organization "organization_id"
+      expect(organization_ticket_list).to include(organization_ticket_entry)
+    end
+
+    it 'can retrieve a closed ticket associated with an organization' do
+      closed_organization_ticket_list = Ticket.closed_organization "organization_id"
+      expect(closed_organization_ticket_list).to include(closed_organization_ticket_entry)
+    end
+
+    it 'can retrieve a ticket associated with a region' do
+      region_ticket_list = Ticket.region "1"
+      expect(region_ticket_list).to include(region_ticket_entry)
+    end
+
+    it 'can retrieve a ticket associated with a resource category' do
+      resource_category_ticket_list = Ticket.resource_category "1"
+      expect(resource_category_ticket_list).to include(resource_category_ticket_entry)
     end
 
   end

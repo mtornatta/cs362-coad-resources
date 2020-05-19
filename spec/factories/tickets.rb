@@ -17,6 +17,24 @@ FactoryBot.define do
   		closed { true }
   	end
 
+	trait :organization do
+		closed { false }
+		organization_id { "organization_id" }
+	end
+
+	trait :closed_organization do
+		closed { true }
+		organization_id { "organization_id" }
+	end
+
+	trait :region do
+		region_id { "1" }
+	end
+
+	trait :resource_category do
+		resource_category_id { "1" }
+	end
+
   end
 
 end
