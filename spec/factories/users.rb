@@ -8,13 +8,13 @@ FactoryBot.define do
    # Traits
 
   	trait :admin do
-      sequence(:email) { |n| "admin#{n}@email.com" }
   	  role { :admin }
+      sequence(:email) { |n| "admin#{n}@email.com" }
   	end
 
   	trait :organization_member do
-      sequence(:email) { |n| "user#{n}@email.com" }
   	  role { :organization }
+      sequence(:email) { |n| "user#{n}@email.com" }
   	end
 
   end
