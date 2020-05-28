@@ -59,6 +59,17 @@ RSpec.describe ResourceCategory, type: :model do
 
   describe 'Method Tests' do
 
+    #unspecified
+    it 'creates a new unspecified resource category when one does not exist' do
+      expect(ResourceCategory.where(name: 'Unspecified')).to be_empty
+      expect { ResourceCategory.unspecified }.to change { ResourceCategory.count }
+      expect(ResourceCategory.where(name: 'Unspecified')).not_to be_empty
+    end
+    it 'does not create unspecified resource category if one exists' do
+      create(:resource_category, :unspecified)
+      expect { ResourceCategory.unspecified }.not_to change { ResourceCategory.count }
+    end
+
     #activate
     it 'can set active to true' do
       # IMPLEMENT

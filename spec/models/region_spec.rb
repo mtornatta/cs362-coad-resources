@@ -34,6 +34,17 @@ RSpec.describe Region, type: :model do
 
   describe 'Method Tests' do
 
+    #unspecified
+    it 'creates a new unspecified region when one does not exist' do
+      expect(Region.where(name: 'Unspecified')).to be_empty
+      expect { Region.unspecified }.to change { Region.count }
+      expect(Region.where(name: 'Unspecified')).not_to be_empty
+    end
+    it 'does not create unspecified region if one exists' do
+      create(:region, :unspecified)
+      expect { Region.unspecified }.not_to change { Region.count }
+    end
+
     #to_s
     it 'is represented by its name' do
       expect(region.to_s).to eq(region.name)
