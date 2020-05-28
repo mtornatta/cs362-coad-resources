@@ -2,8 +2,8 @@ FactoryBot.define do
 
   factory :organization do
 
-  	email { 'fake@email.com' }
-  	name { 'FAKE ORGANIZATION' }
+  	sequence(:email) { |n| "organization#{n}@email.com" }
+  	sequence(:name) { |n| "Organization #{n}" }
   	phone { '+14515555555' }
   	primary_name { 'FAKE' }
   	secondary_name { 'ORGANIZATION' }
