@@ -16,7 +16,7 @@ RSpec.describe RegionsController, type: :controller do
             :create, 
             params: {
               region: attributes_for(:region)
-            } 
+            }
           )
         ).to redirect_to(regions_path)
       end
@@ -42,11 +42,15 @@ RSpec.describe RegionsController, type: :controller do
 
       it 'succeeds' do
         expect(
-          patch(
+          post(
             :create, 
             params: {
               region: attributes_for(:region)
-            } 
+            }
+          )
+          patch(
+            :update, 
+            params: attributes_for(:region)
           )
         ).to redirect_to("/regions/#{region.id}")
       end
