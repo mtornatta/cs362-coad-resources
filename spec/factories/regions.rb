@@ -2,7 +2,7 @@ FactoryBot.define do
 
   factory :region do
 
-    sequence(:name) { |n| "Region#{n}" }
+    sequence(:name) { |n| "Region #{n}" }
 
     # Traits
 
