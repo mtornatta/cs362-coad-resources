@@ -19,12 +19,12 @@ FactoryBot.define do
 
 	trait :organization do
 		closed { false }
-		organization_id { "organization_id" }
+		organization_id { "1" }
 	end
 
 	trait :closed_organization do
 		closed { true }
-		organization_id { "organization_id" }
+		organization_id { "1" }
 	end
 
 	trait :region do

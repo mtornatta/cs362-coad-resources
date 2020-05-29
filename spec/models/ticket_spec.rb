@@ -111,22 +111,26 @@ RSpec.describe Ticket, type: :model do
     end
 
     it 'can retrieve an open ticket associated with an organization' do
-      organization_ticket_list = Ticket.organization "organization_id"
+      id = organization_ticket_entry.organization_id
+      organization_ticket_list = Ticket.organization id
       expect(organization_ticket_list).to include(organization_ticket_entry)
     end
 
     it 'can retrieve a closed ticket associated with an organization' do
-      closed_organization_ticket_list = Ticket.closed_organization "organization_id"
+      id = closed_organization_ticket_entry.organization_id
+      closed_organization_ticket_list = Ticket.closed_organization id
       expect(closed_organization_ticket_list).to include(closed_organization_ticket_entry)
     end
 
     it 'can retrieve a ticket associated with a region' do
-      region_ticket_list = Ticket.region "1"
+      id = region_ticket_entry.region_id
+      region_ticket_list = Ticket.region id
       expect(region_ticket_list).to include(region_ticket_entry)
     end
 
     it 'can retrieve a ticket associated with a resource category' do
-      resource_category_ticket_list = Ticket.resource_category "1"
+      id = resource_category_ticket_entry.region_id
+      resource_category_ticket_list = Ticket.resource_category id
       expect(resource_category_ticket_list).to include(resource_category_ticket_entry)
     end
 
