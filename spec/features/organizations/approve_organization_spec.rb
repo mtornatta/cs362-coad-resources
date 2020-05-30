@@ -7,11 +7,12 @@ RSpec.describe 'Approving an organization', type: :feature do
   describe 'as an admin' do
     before do
       admin.confirm
-      sign_in(admin)
+      log_in_as(admin)
+      organization.save
     end
     it 'approves an organization successfully' do
-        visit("/organizations/#{organization.id}")
-        click_button('Approve')
+        visit organization_path(organization.id)
+        click_on('Approve')
         expect(page).to have_content("#{organization.name}")
     end
   end
