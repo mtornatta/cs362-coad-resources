@@ -13,15 +13,32 @@ require 'rails_helper'
 RSpec.describe DashboardHelper, type: :helper do
 
   it 'returns admin dashboard' do
+    admin = double()
+    admin.stub(:admin?).and_return(true)
+    expect(dashboard_for(admin)).to eq('admin_dashboard')
   end
 
   it 'returns org submitted dashboard' do
+    user = double()
+    user.stub(:admin?).and_return(false)
+    user.stub_chain(:organization, :submitted?).and_return(true)
+    expect(dashboard_for(user)).to eq('organization_submitted_dashboard')
   end
 
   it 'returns org approved dashboard' do
+    user = double()
+    user.stub(:admin?).and_return(false)
+    user.stub_chain(:organization, :submitted?).and_return(false)
+    user.stub_chain(:organization, :approved?).and_return(true)
+    expect(dashboard_for(user)).to eq('organization_approved_dashboard')
   end
 
   it 'returns create application dashboard' do
+    user = double()
+    user.stub(:admin?).and_return(false)
+    user.stub_chain(:organization, :submitted?).and_return(false)
+    user.stub_chain(:organization, :approved?).and_return(false)
+    expect(dashboard_for(user)).to eq('create_application_dashboard')
   end
 
 end
