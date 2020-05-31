@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Approving an organization', type: :feature do
-  let(:organization) {create(:organization, :submitted)}
-  let(:admin) {create(:user, :admin)}
+  let(:organization) { create(:organization, :submitted) }
+  let(:admin) { create(:user, :admin) }
   
-  describe 'as an admin' do
+  context 'as an admin' do
     before do
       admin.confirm
       log_in_as(admin)
@@ -13,7 +13,7 @@ RSpec.describe 'Approving an organization', type: :feature do
     it 'approves an organization successfully' do
         visit organization_path(organization.id)
         click_on('Approve')
-        expect(page).to have_content("#{organization.name}")
+        expect(page).to have_content("#{organization.name} has been approved.")
     end
   end
 end
