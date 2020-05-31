@@ -17,7 +17,6 @@ RSpec.describe 'Approving an organization', type: :feature do
         click_on('Approve')
         expect(page).to have_content('approved')
     end
-
   end
 
 end
