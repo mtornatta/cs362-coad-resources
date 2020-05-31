@@ -12,4 +12,16 @@ require 'rails_helper'
 # end
 RSpec.describe DashboardHelper, type: :helper do
 
+  it 'returns admin dashboard' do
+  end
+
+  it 'returns org submitted dashboard' do
+  end
+
+  it 'returns org approved dashboard' do
+  end
+
+  it 'returns create application dashboard' do
+  end
+
 end
