@@ -88,7 +88,7 @@ RSpec.describe RegionsController, type: :controller do
               region: attributes_for(:region)
             }
           )
-        ).to redirect_to("/regions/#{region.id}")
+        ).to redirect_to(region_path(region.id))
       end
     end
 
