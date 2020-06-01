@@ -2,32 +2,49 @@ require 'rails_helper'
 
 RSpec.describe RegionsController, type: :controller do
 
-  context 'Admin User' do
+  context 'As an admin' do
 
     let(:region) { create(:region) }
     let(:admin) { create(:user, :admin) }
 
 
     describe 'GET #index' do
-      it 'returns list of all regions' do
-        expect(controller.index).to include(region)
+      before do
+        admin.confirm
+        sign_in(admin)
+      end
+
+      it 'is successful' do
+        expect(get :index).to be_successful
       end
     end
 
 
     describe 'GET #show' do
-      it 'returns the specified region' do
-        get :show, params: { id: region.id }
-        expect(controller.show).to eq(region)
+      before do
+        admin.confirm
+        sign_in(admin)
+      end
+
+      it 'is successful' do
+        expect(
+          get( 
+            :show, 
+            params: { id: region.id }
+          )
+        ).to be_successful
       end
     end
 
 
     describe 'GET #new' do
-      it 'returns a brand new region' do
-        new_region = controller.new
-        expect(new_region).to be_an_instance_of(Region)
-        expect(new_region).not_to be_valid
+      before do
+        admin.confirm
+        sign_in(admin)
+      end
+
+      it 'is successful' do
+        expect(get :new).to be_successful
       end
     end
 
@@ -36,19 +53,6 @@ RSpec.describe RegionsController, type: :controller do
       before do
         admin.confirm
         sign_in(admin)
-      end
-
-      it 'creates a region' do
-        expect{
-          post(
-            :create, 
-            params: {
-              region: attributes_for(:region)
-            }
-          )
-        }.to change{
-          Region.count
-        }.by 1
       end
 
       it 'redirects after creation' do
@@ -65,9 +69,18 @@ RSpec.describe RegionsController, type: :controller do
 
 
     describe 'GET #edit' do
-      it 'returns the specified region' do
-        get :edit, params: { id: region.id }
-        expect(controller.edit).to eq(region)
+      before do
+        admin.confirm
+        sign_in(admin)
+      end
+
+      it 'is successful' do
+        expect(
+          get(
+            :edit, 
+            params: { id: region.id }
+          )
+        ).to be_successful
       end
     end
 
@@ -98,17 +111,6 @@ RSpec.describe RegionsController, type: :controller do
         sign_in(admin)
       end
 
-      it 'deletes a region' do
-        expect{
-          delete(
-            :destroy,
-            params: { id: region.id }
-          )
-        }.to change {
-          Region.count
-        }.by 1
-      end
-
       it 'redirects after deletion' do
         expect(
           delete(
@@ -118,6 +120,13 @@ RSpec.describe RegionsController, type: :controller do
         ).to redirect_to(regions_path)
       end
     end
+
+  end
+
+
+  context 'As a regular user' do
+
+    let(:user) { create(:user) }
 
   end
 
