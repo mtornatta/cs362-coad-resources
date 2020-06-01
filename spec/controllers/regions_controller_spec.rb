@@ -124,9 +124,56 @@ RSpec.describe RegionsController, type: :controller do
   end
 
 
-  context 'As a regular user' do
+  context 'As a registered user' do
 
     let(:user) { create(:user) }
+
+    describe 'GET #index' do
+    end
+
+    describe 'GET #show' do
+    end
+
+    describe 'GET #new' do
+    end
+
+    describe 'POST #create' do
+    end
+
+    describe 'GET #edit' do
+    end
+
+    describe 'PATCH #update' do
+    end
+
+    describe 'DELETE #destroy' do
+    end
+
+  end
+
+
+  context 'As a public user' do
+
+    describe 'GET #index' do
+    end
+    
+    describe 'GET #show' do
+    end
+    
+    describe 'GET #new' do
+    end
+    
+    describe 'POST #create' do
+    end
+    
+    describe 'GET #edit' do
+    end
+    
+    describe 'PATCH #update' do
+    end
+    
+    describe 'DELETE #destroy' do
+    end
 
   end
 
