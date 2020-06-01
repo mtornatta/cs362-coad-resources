@@ -7,25 +7,21 @@ RSpec.describe RegionsController, type: :controller do
     let(:region) { create(:region) }
     let(:admin) { create(:user, :admin) }
 
-
     describe 'GET #index' do
       before do
         admin.confirm
         sign_in(admin)
       end
-
       it 'is successful' do
         expect(get :index).to be_successful
       end
     end
-
 
     describe 'GET #show' do
       before do
         admin.confirm
         sign_in(admin)
       end
-
       it 'is successful' do
         expect(
           get( 
@@ -36,26 +32,22 @@ RSpec.describe RegionsController, type: :controller do
       end
     end
 
-
     describe 'GET #new' do
       before do
         admin.confirm
         sign_in(admin)
       end
-
       it 'is successful' do
         expect(get :new).to be_successful
       end
     end
-
 
     describe 'POST #create' do
       before do
         admin.confirm
         sign_in(admin)
       end
-
-      it 'redirects after creation' do
+      it 'redirects to regions' do
         expect(
           post(
             :create, 
@@ -67,13 +59,11 @@ RSpec.describe RegionsController, type: :controller do
       end
     end
 
-
     describe 'GET #edit' do
       before do
         admin.confirm
         sign_in(admin)
       end
-
       it 'is successful' do
         expect(
           get(
@@ -83,15 +73,13 @@ RSpec.describe RegionsController, type: :controller do
         ).to be_successful
       end
     end
-
     
     describe 'PATCH #update' do
       before do
         admin.confirm
         sign_in(admin)
       end
-
-      it 'confirms updates to a region' do
+      it 'redirects to the updated region' do
         expect(
           patch(
             :update, 
@@ -104,14 +92,12 @@ RSpec.describe RegionsController, type: :controller do
       end
     end
 
-
     describe 'DELETE #destroy' do
       before do
         admin.confirm
         sign_in(admin)
       end
-
-      it 'redirects after deletion' do
+      it 'redirects to regions' do
         expect(
           delete(
             :destroy,
@@ -124,55 +110,190 @@ RSpec.describe RegionsController, type: :controller do
   end
 
 
+
   context 'As a registered user' do
 
+    let(:region) { create(:region) }
     let(:user) { create(:user) }
 
     describe 'GET #index' do
+      before do
+        user.confirm
+        sign_in(user)
+      end
+      it 'is not successful' do
+        expect(get :index).not_to be_successful
+      end
     end
 
     describe 'GET #show' do
+      before do
+        user.confirm
+        sign_in(user)
+      end
+      it 'is not successful' do
+        expect(
+          get( 
+            :show, 
+            params: { id: region.id }
+          )
+        ).not_to be_successful
+      end
     end
 
     describe 'GET #new' do
+      before do
+        user.confirm
+        sign_in(user)
+      end
+      it 'is not successful' do
+        expect(get :new).not_to be_successful
+      end
     end
 
     describe 'POST #create' do
+      before do
+        user.confirm
+        sign_in(user)
+      end
+      it 'redirects to dashboard after creation' do
+        expect(
+          post(
+            :create, 
+            params: {
+              region: attributes_for(:region)
+            }
+          )
+        ).to redirect_to(dashboard_path)
+      end
     end
 
     describe 'GET #edit' do
+      before do
+        user.confirm
+        sign_in(user)
+      end
+      it 'is not successful' do
+        expect(
+          get(
+            :edit, 
+            params: { id: region.id }
+          )
+        ).not_to be_successful
+      end
     end
 
     describe 'PATCH #update' do
+      before do
+        user.confirm
+        sign_in(user)
+      end
+      it 'redirects to dashboard' do
+        expect(
+          patch(
+            :update, 
+            params: {
+              id: region.id,
+              region: attributes_for(:region)
+            }
+          )
+        ).to redirect_to(dashboard_path)
+      end
     end
 
     describe 'DELETE #destroy' do
+      before do
+        user.confirm
+        sign_in(user)
+      end
+      it 'redirects to dashboard' do
+        expect(
+          delete(
+            :destroy,
+            params: { id: region.id }
+          )
+        ).to redirect_to(dashboard_path)
+      end
     end
 
   end
 
 
+
   context 'As a public user' do
 
+    let(:region) { create(:region) }
+
     describe 'GET #index' do
+      it 'is not successful' do
+        expect(get :index).not_to be_successful
+      end
     end
     
     describe 'GET #show' do
+      it 'is not successful' do
+        expect(
+          get( 
+            :show, 
+            params: { id: region.id }
+          )
+        ).not_to be_successful
+      end
     end
     
     describe 'GET #new' do
+      it 'is not successful' do
+        expect(get :new).not_to be_successful
+      end
     end
     
     describe 'POST #create' do
+      it 'redirects to login page after creation' do
+        expect(
+          post(
+            :create, 
+            params: {
+              region: attributes_for(:region)
+            }
+          )
+        ).to redirect_to(user_session_path)
+      end
     end
     
     describe 'GET #edit' do
+      it 'is not successful' do
+        expect(
+          get(
+            :edit, 
+            params: { id: region.id }
+          )
+        ).not_to be_successful
+      end
     end
     
     describe 'PATCH #update' do
+      it 'redirects to login page' do
+        expect(
+          patch(
+            :update, 
+            params: {
+              id: region.id,
+              region: attributes_for(:region)
+            }
+          )
+        ).to redirect_to(user_session_path)
+      end
     end
     
     describe 'DELETE #destroy' do
+      it 'redirects to login page' do
+        expect(
+          delete(
+            :destroy,
+            params: { id: region.id }
+          )
+        ).to redirect_to(user_session_path)
+      end
     end
 
   end
