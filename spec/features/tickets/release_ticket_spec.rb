@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Releasing a ticket by an', type: :feature do
-#   it 'succeeds as user' do
+#   it 'user' do
 #     organization = create(:organization, :approved)
 #     user = create(:user)
 #     user.organization = organization
