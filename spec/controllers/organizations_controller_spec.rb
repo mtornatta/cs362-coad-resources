@@ -43,6 +43,17 @@ RSpec.describe OrganizationsController, type: :controller do
       end
     end
 
+    describe 'GET #edit' do
+      before do
+        admin.confirm
+        sign_in(admin)
+      end
+      it 'is successful' do
+        organization = create(:organization)
+        expect(get :edit, params: { id: organization.id }).to be_successful
+      end
+    end
+
     describe 'PATCH #update' do
       before do
         admin.confirm
@@ -86,7 +97,7 @@ RSpec.describe OrganizationsController, type: :controller do
         sign_in(admin)
       end
       it 'redirects to organizations' do
-        organization = create(:organization)
+        organization = create(:organization, :approved)
         expect(
           patch(
             :approve,
@@ -144,6 +155,19 @@ RSpec.describe OrganizationsController, type: :controller do
             }
           )
         ).to redirect_to(organization_application_submitted_path)
+      end
+    end
+
+    describe 'GET #edit' do
+      before do
+        user.confirm
+        sign_in(user)
+      end
+      it 'is successful' do
+        organization = create(:organization, :approved)
+        user.organization = organization
+        user.save
+        expect(get :edit, params: { id: organization.id }).to be_successful
       end
     end
 
@@ -227,6 +251,13 @@ RSpec.describe OrganizationsController, type: :controller do
             }
           )
         ).to redirect_to(user_session_path)
+      end
+    end
+
+    describe 'GET #edit' do
+      it 'is not successful' do
+        organization = create(:organization)
+        expect(get :edit, params: { id: organization.id }).not_to be_successful
       end
     end
 
