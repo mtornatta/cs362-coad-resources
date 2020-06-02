@@ -58,9 +58,13 @@
   %dt.col-3 Description
   %dd.col-9= @organization.description
 
-- if current_user.admin? && @organization.submitted? || @organization.rejected?
+- if (current_user.admin? && @organization.approved?) || current_user.organization == @organization
   .row.mt-5.align-items-end
-    .col-6.align-bottom= link_to 'Approve', approve_organization_path(@organization), method: :post, class: 'btn btn-success'
+    .col-6.align-left= link_to 'Edit Organization', edit_organization_path(@organization), class: 'btn btn-primary'
+
+- if (current_user.admin? && @organization.submitted?) || @organization.rejected?
+  .row.mt-5.align-items-end
+    .col-6.align-right= link_to 'Approve', approve_organization_path(@organization), method: :post, class: 'btn btn-success'
     .col-6
       = form_for @organization, url: { action: 'reject' }, method: :post do |f|
         .form-group
