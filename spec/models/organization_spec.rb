@@ -105,12 +105,14 @@ RSpec.describe Organization, type: :model do
 
     #approve
     it 'can set status to approved' do
-      # IMPLEMENT
+      organization.approve
+      expect(organization.status).to eq("approved")
     end
 
     #reject
     it 'can set status to rejected' do
-      # IMPLEMENT
+      organization.reject
+      expect(organization.status).to eq("rejected")
     end
 
     #set_default_status
