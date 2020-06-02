@@ -98,6 +98,36 @@ RSpec.describe TicketsController, type: :controller do
       end
     end
 
+    describe 'PATCH #close' do
+      before do
+        admin.confirm
+        sign_in(admin)
+      end
+      it 'redirects to dashboard' do
+        expect(
+          patch(
+            :close,
+            params: { id: ticket.id }
+          )
+        ).to redirect_to(dashboard_path << '#tickets:open')
+      end
+    end
+
+    describe 'DELETE #destroy' do
+      before do
+        admin.confirm
+        sign_in(admin)
+      end
+      it 'is not successful' do
+        expect(
+          delete(
+            :destroy,
+            params: { id: ticket.id }
+          )
+        ).to redirect_to(dashboard_path << '#tickets')
+      end
+    end
+
   end
 
 
@@ -197,6 +227,41 @@ RSpec.describe TicketsController, type: :controller do
       end
     end
 
+    describe 'PATCH #close' do
+      before do
+        user.confirm
+        sign_in(user)
+      end
+      it 'redirects to dashboard' do
+        organization = create(:organization, :approved)
+        organization.save
+        user.organization = organization
+        user.save
+        allow(TicketService).to receive(:close_ticket).and_return(:ok)
+        expect(
+          patch(
+            :close,
+            params: { id: ticket.id }
+          )
+        ).to redirect_to(dashboard_path << '#tickets:organization')
+      end
+    end
+
+    describe 'DELETE #destroy' do
+      before do
+        user.confirm
+        sign_in(user)
+      end
+      it 'is not successful' do
+        expect(
+          delete(
+            :destroy,
+            params: { id: ticket.id }
+          )
+        ).not_to be_successful
+      end
+    end
+
   end
 
 
@@ -252,6 +317,42 @@ RSpec.describe TicketsController, type: :controller do
             params: { id: ticket.id }
           )
         ).to redirect_to(dashboard_path)
+      end
+    end
+
+    describe 'POST #release' do
+      it 'redirects to dashboard' do
+        expect(
+          post(
+            :release,
+            params: { id: ticket.id }
+          )
+        ).to redirect_to(dashboard_path)
+      end
+    end
+
+    # uncomment if close method is tweaked to deny
+    # a public user:
+    #
+    # describe 'PATCH #close' do
+    #   it 'redirects to dashboard' do
+    #     expect(
+    #       patch(
+    #         :close,
+    #         params: { id: ticket.id }
+    #       )
+    #     ).to redirect_to(dashboard_path)
+    #   end
+    # end
+
+    describe 'DELETE #destroy' do
+      it 'is not successful' do
+        expect(
+          delete(
+            :destroy,
+            params: { id: ticket.id }
+          )
+        ).not_to be_successful
       end
     end
 
