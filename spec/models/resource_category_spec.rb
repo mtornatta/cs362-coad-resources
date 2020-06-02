@@ -72,12 +72,14 @@ RSpec.describe ResourceCategory, type: :model do
 
     #activate
     it 'can set active to true' do
-      # IMPLEMENT
+      resource_category.activate
+      expect(resource_category.inactive?).to be_falsey
     end
 
     #deactivate
     it 'can set active to false' do
-      # IMPLEMENT
+      resource_category.deactivate
+      expect(resource_category.inactive?).to be_truthy
     end
 
     
